@@ -1,0 +1,26 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Document{% endblock%}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap5.min.css'%}">
+</head>
+<body>
+    <div class=" container p-2 mt-2 border rounded">
+        {% block content%}
+
+        {% endblock %}
+    </div>
+
+    <div class="container p-2 mt-2 border rounded">
+        {% block listnya%}
+        {% endblock%}
+    </div>
+    
+    <script src="{% static 'js/bootstrap5.bundle.min.js'%}"></script>
+    <script src="{% static 'js/jquery.min.js'%}"></script>
+</body>
+</html>

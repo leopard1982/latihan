@@ -2,7 +2,7 @@
 
 {% block content%}
 <h1>{{heading}}</h1>
-<form  method="post">
+<form  method="post" action={% url 'indeks'%}>
     {% csrf_token%}
     {{forms.as_p}}
     <input type="submit" value="Simpan" class="form-control btn btn-outline-success" />
@@ -15,13 +15,20 @@
             <th>No.</th>
             <th>Nama</th>
             <th>Alamat</th>
+            <th>Kelamin</th>
         </tr>
     {% for dataku in data%}
         <tr>
             <td>{{forloop.counter}}</td>
             <td>{{dataku.nama}}</td>
             <td>{{dataku.alamat}}</td>
+            <td>{{dataku.get_kelamin_display}}</td>
         </tr>
     {% endfor %}
     </table>
+    <h3>Status: {{hasil|yesno:"Benar,Salah,Kosong/None"}}</h3>
+    <form method="get" action="{% url 'Parameterku' '-->hallo ini parameternya bray!'%}">
+        {% csrf_token%}
+        <button type="submit" value="Tampilkan Parameter">Tampilkan Parameter</button>
+    </form>
 {% endblock %}

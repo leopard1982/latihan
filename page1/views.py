@@ -9,6 +9,7 @@ from django.views.generic.list import ListView
 
 # Create your views here.
 class Parameterku(View):
+    parameters = None
     def post(self,request,parameter):
         return HttpResponse("Dari POST, parameternya itu ya: " + parameter)
 

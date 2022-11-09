@@ -1,0 +1,67 @@
+{% extends "initial.html"%}
+
+{% block content%}
+<h1>{{heading}}</h1>
+<form  method="post" action={% url 'indeks'%}>
+    {% csrf_token%}
+    {{forms.as_p}}
+    <input type="submit" value="Simpan" class="form-control btn btn-outline-success" />
+</form>
+{% endblock %}
+
+{% block listnya%}
+<!--paginator action-->
+        <div class="container my-3">
+            &laquo;Halaman ke-{{halaman.number}} dari {{halaman.paginator.num_pages}}&raquo;
+            <br/>
+
+            <a href="?page=1">&laquo; First</a>
+            {% if halaman.has_previous %}
+                <a href="?page={{halaman.previous_page_number}}">Previous</a>
+            {% else%}
+                Previous
+            {% endif %}
+
+            {% if halaman.has_next %}
+                <a href="?page={{halaman.next_page_number}}">Next</a>
+            {% else%}
+                Next
+            {% endif%}
+            <a href="?page={{halaman.paginator.num_pages}}">Last &raquo;</a>
+        </div>
+    <div class="card shadow p-2">
+        {% for dataku in halaman %}
+            <div class="row"><h2>Data ke-{{forloop.counter}}</h2></div>
+            <div class="row">
+                <div class="col-3">Nama Anggota:</div>
+                <div class="col-9">{{dataku.nama}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Alamat Anggota:</div>
+                <div class="col-9">{{dataku.alamat}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Jenis Kelamin:</div>
+                <div class="col-9">{{dataku.get_kelamin_display}}</div>
+            </div>        
+            <hr>
+        {% endfor %}
+    </div>
+        
+
+    <!--    
+    <form method="get" action="{% url 'Parameterku' '->hallo ini parameternya bray!'%}">
+        {% csrf_token%}
+        <button type="submit" value="Tampilkan Parameter">Tampilkan Parameter</button>
+    </form>
+    <hr/>
+    <h4>Membuat Halaman</h4>
+    {{halaman}}<br>
+    <label >Has Previous: {{halaman.has_previous}}</label><br/>
+    <label >Has next: {{halaman.has_next}}</label><br/>
+    <label >Halaman Sekarang: {{halaman.number}}</label><br/>
+    <label >Total Halaman: {{halaman.paginator.num_pages}}</label>
+    <hr/><br/>
+    -->
+    
+{% endblock %}

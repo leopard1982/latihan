@@ -1,0 +1,36 @@
+{% extends "blogs/initial.html"%}
+
+{% block tengah%}
+    {% for blog in blogs%}
+        <div class="card my-2 p-2 border rounded shadow"> 
+            {% if user.is_authenticated %}
+                {% if user.username == blog.creator %}
+                    <div class="d-flex justify-content-end">
+                        <button onclick="location.href='/blogs/b/d/{{blog.judul}}'" class="btn btn-outline-primary">X</button>
+                    </div>
+                {% endif%}
+            {% endif %}
+            <h2><a href='/blogs/read/{{blog.judul}}'>{{blog.judul | title}}</a></h2>
+            <p><i>created by: {{blog.creator}} - {{blog.tanggalbuat}}</i></p>
+            <p><img src='{{blog.foto.url}}' class="float-center" style="width:200px;heigth:200px"></p>
+            <p><pre style="font-family:Verdana">{{blog.paragrafs|truncatechars:300}}</pre></p>    
+        </div>
+    {% endfor%}
+    <div class="container text-center">
+        {% if blogs.has_previous%}
+            <a href="?page={{blogs.previous_page_number}}">&laquo;prev </a>
+        {% else %}
+            &laquo;prev 
+        {% endif %}
+        page {{blogs.number}} from {{blogs.paginator.num_pages}}
+        {% if blogs.has_next%}
+            <a href="?page={{blogs.next_page_number}}"> next&raquo;</a>
+        {% else %}
+             next&raquo;
+        {% endif%}
+    </div>
+{% endblock %}
+
+{% block footer%}
+footer
+{% endblock%}

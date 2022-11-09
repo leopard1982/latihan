@@ -1,0 +1,85 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Document{% endblock%}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap5.min.css'%}">
+    <style type="text/css">
+        /*untuk melakukan wrapping pada tag pre*/
+        pre {
+            overflow-x: auto;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+         }
+    </style>
+</head>
+<body>
+    <div class=" container p-2 mt-2 ">
+        <div class="container p-2 rounded-3 shadow text-center border " style="background-color:lightblue">
+            <p class="h2">&laquo; UBLOGS - Mania &raquo;</p>
+        </div>
+        <div class="d-flex container justify-content-end">
+            {% if user.is_authenticated %}
+                login as: {{user.username}}
+                <button type="submit" class="btn btn-outline-primary" onclick="location.href='/blogs/logout/'">logout</button>
+            {% else %}
+                <form method="post" action="{% url 'LoginUser' %}">
+                    {% csrf_token %}
+                    username: <input type="text" name="username"> password: <input type="password" name="password"> <button type="submit" class="btn btn-outline-primary">Login</button>
+                </form>
+            {% endif%}
+        </div>
+        
+
+        <div class="row my-3 p-2">
+            <div class="col-3 col-lg-3 col-md-3 col-sm-3 p-2 border shadow rounded" style="background-color:beige">
+                <ul class="list-group m-2">
+                    <li class="list-group-item"><button type="button" class="btn form-control bg-outline-primary my-2" onclick="location.href='/blogs/'">Home</button></li>
+                    {% if user.is_authenticated %}
+                        <li class="list-group-item"><button type="button" class="btn form-control bg-outline-primary my-2" onclick="location.href='/blogs/b/i/'">New Blog</button></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-6 p-2 col-lg-6 col-md-6 col-sm-6 border shadow rounded" style="background-color:whitesmoke">
+                {% block tengah%}
+                {% endblock%}
+            </div>
+            
+            <div class="col-3 col-lg-3 col-md-3 col-sm-3 p-2 border shadow rounded" style="background-color:lightyellow">
+                <ul class="list-group m-2">
+                    <li class="list-group-item">
+                        <div class="card border shadow rounded p-2 text-center bg-primary">
+                            New POST!
+                        </div>
+                        <div class="card border shadow rounded p-2">
+                            {% for lastnya in lastdata%}
+                                created by: <b>{{lastnya.creator}}</b><br/>
+                                created on: <b>{{lastnya.tanggalbuat}}</b><br/>
+                                judul artikel: <b><a href='/blogs/read/{{lastnya.judul}}/'>{{lastnya.judul|title}}</a></b>
+                                <img src="{{lastnya.foto.url}}"></img>
+                                <div class="border rounded">
+                                    {{lastnya.paragrafs|truncatechars:200}}
+                                </div>
+                            {% endfor%}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row  my-3 p-2">
+            <div class="footer col-12 shadow rounded p-2 text-center" style="background-color:whitesmoke">
+                &copy;2022 - By Leopard Inc
+            </div>
+        </div>
+    </div>
+    
+    <script src="{% static 'js/bootstrap5.bundle.min.js'%}"></script>
+    <script src="{% static 'js/jquery.min.js'%}"></script>
+</body>
+</html>

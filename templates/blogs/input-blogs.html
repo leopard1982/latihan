@@ -1,0 +1,16 @@
+{% extends "blogs/initial.html"%}
+
+{% block headers%}
+    <div class="container p-2 rounded-3 shadow text-center border " style="background-color:lightblue">
+        <p class="h2">Welcome to My Blog</p>
+    </div>
+{% endblock %}
+
+{% block tengah%}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token%}
+    {{forms.as_p}}
+    <input type="submit" value="Posting" class="form-control btn btn-outline-primary">    
+</form>
+
+{% endblock %}

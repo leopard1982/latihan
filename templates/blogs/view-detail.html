@@ -1,0 +1,14 @@
+{% extends "blogs/initial.html"%}
+
+{% block tengah%}
+        <div class="card my-2 p-2 border rounded shadow"> 
+            <h2>{{blogs.judul | title}}</h2>
+            <p><i>created by: {{blogs.creator}} - {{blogs.tanggalbuat}}</i></p>
+            <p><img src='{{blogs.foto.url}}' class="img-fluid img-thumbnail"></p>
+            <p><pre style="font-family:Verdana">{{blogs.paragrafs}}</pre></p>    
+        </div>
+{% endblock %}
+
+{% block footer%}
+footer
+{% endblock%}
